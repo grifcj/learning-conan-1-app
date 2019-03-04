@@ -2,13 +2,13 @@
 import os
 import subprocess
 
-def configure(cmd):
+def build(cmd):
     print("Running {}: {}".format(os.getpid(), cmd))
     os.system(cmd)
 
 if __name__ == "__main__":
     configs = [
-            str("cmake -H. -Bbuild/d{} -GNinja".format(d)) for d in range(0, 4)
+            str("ninja -C build/d{}".format(d)) for d in range(0, 4)
     ]
     for c in configs:
-        configure(c)
+        build(c)
