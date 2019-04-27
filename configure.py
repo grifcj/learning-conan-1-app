@@ -2,13 +2,39 @@
 import os
 import subprocess
 
-def configure(cmd):
+def runCmd(cmd):
     print("Running {}: {}".format(os.getpid(), cmd))
     os.system(cmd)
 
 if __name__ == "__main__":
+    externals = [
+            {
+                'name' : 'googletest',
+                'checkout' :
+                    "git clone https://github.com/google/googletest.git externals/googletest && "
+                    "cd externals/googletest && "
+                    "git checkout release-1.8.0"
+                },
+            {
+                'name' : 'logger',
+                'checkout' : "git clone git@github.com:grifcj/cmake-logger externals/logger"
+
+                },
+            {
+                'name' : 'math',
+                'checkout' : "git clone git@github.com:grifcj/cmake-math externals/math"
+                }
+            ]
+
+    for e in externals:
+        path = 'externals/%s' % e['name']
+        if not os.path.exists(path):
+            runCmd(e['checkout'])
+
     configs = [
-            str("cmake -H. -Bbuild/d{} -GNinja".format(d)) for d in range(0, 4)
-    ]
+            "cmake -H. -Bbuild -GNinja"
+            ]
+
     for c in configs:
-        configure(c)
+        runCmd(c)
+
