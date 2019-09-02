@@ -1,0 +1,9 @@
+[remote "googletest"]
+	url = https://github.com/google/googletest.git
+	fetch = +refs/heads/*:refs/remotes/googletest/*
+[remote "logger"]
+	url = git@github.com:grifcj/cmake-logger
+	fetch = +refs/heads/*:refs/remotes/logger/*
+[remote "math"]
+	url = git@github.com:grifcj/cmake-math
+	fetch = +refs/heads/*:refs/remotes/math/*
