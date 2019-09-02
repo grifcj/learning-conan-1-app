@@ -1,6 +1,6 @@
 #include <gmock/gmock.h>
 
-#include "math.h"
+#include "fibonacci.h"
 
 TEST(Fibonacci, ReturnCorrectAnswer)
 {

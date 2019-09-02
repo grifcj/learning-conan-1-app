@@ -7,7 +7,7 @@ include(externals.cmake)
 AddExternals(googletest logger)
 
 set(libName ${PROJECT_NAME})
-add_library(${libName} math.cpp)
+add_library(${libName} fibonacci.cpp)
 target_include_directories(${libName} PUBLIC ${CMAKE_CURRENT_LIST_DIR})
 target_link_libraries(${libName} PUBLIC logger)
 
