@@ -3,16 +3,14 @@ project(app)
 
 enable_testing()
 
-include(externals.cmake)
-AddExternals(googletest logger math)
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup(TARGETS)
 
-set(exeName ${PROJECT_NAME})
-add_executable(${exeName} main.cpp)
-target_link_libraries(${exeName} PUBLIC math logger)
+add_executable(app main.cpp)
+target_link_libraries(app PUBLIC CONAN_PKG::math CONAN_PKG::logger)
 
-set(testName ${PROJECT_NAME}_unittest)
-add_test(NAME ${testName} COMMAND $<TARGET_FILE:${exeName}>)
+add_test(NAME app-test COMMAND $<TARGET_FILE:app>)
 set_tests_properties(
-   ${testName}
+   app-test
    PROPERTIES
    PASS_REGULAR_EXPRESSION "Fibonacci.*grand")
