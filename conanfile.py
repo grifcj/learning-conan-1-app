@@ -10,8 +10,9 @@ class AppConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = "shared=False"
-    generators = "cmake"
-    requires = ["logger/0.1.0@grifcj/stable", "math/0.1.0@grifcj/stable"]
+    generators = "cmake_find_package_multi"
+    requires = "logger/0.1.0@grifcj/stable", "math/0.1.0@grifcj/stable"
+    build_requires = "gtest/1.8.1@bincrafters/stable"
 
     def source(self):
         self.run("git clone https://github.com/grifcj/cmake-app .")
@@ -20,7 +21,7 @@ class AppConan(ConanFile):
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
-        cmake.build(target='test')
+        cmake.test()
 
     def package(self):
         self.copy("*.h", dst="include")

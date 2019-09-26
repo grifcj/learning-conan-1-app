@@ -1,16 +1,15 @@
 cmake_minimum_required(VERSION 3.13)
 project(app)
 
-enable_testing()
-
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup(TARGETS)
+find_package(logger CONFIG REQUIRED)
+find_package(math CONFIG REQUIRED)
 
 add_executable(app main.cpp)
-target_link_libraries(app PUBLIC CONAN_PKG::math CONAN_PKG::logger)
+target_link_libraries(app PUBLIC math::math logger::logger)
 
-add_test(NAME app-test COMMAND $<TARGET_FILE:app>)
+enable_testing()
+add_test(NAME app::unittest COMMAND $<TARGET_FILE:app>)
 set_tests_properties(
-   app-test
+   app::unittest
    PROPERTIES
    PASS_REGULAR_EXPRESSION "Fibonacci.*grand")
