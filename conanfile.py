@@ -1,8 +1,15 @@
 from conans import ConanFile, CMake, tools
 
+def get_version():
+    git = tools.Git()
+    try:
+        return git.run("describe --tags")
+    except:
+        return None
+
 class AppConan(ConanFile):
     name = "app"
-    version = "0.1.0"
+    version = get_version()
     license = "Beerware"
     author = "Connor Griffith grifcj@gmail.com"
     url = "https://github.com/grifcj/cmake-app"
