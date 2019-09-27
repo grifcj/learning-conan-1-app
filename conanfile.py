@@ -21,8 +21,11 @@ class AppConan(ConanFile):
     requires = "logger/0.1.0@grifcj/stable", "math/0.1.0@grifcj/stable"
     build_requires = "gtest/1.8.1@bincrafters/stable"
 
-    def source(self):
-        self.run("git clone https://github.com/grifcj/cmake-app .")
+    scm = {
+            "type": "git",
+            "url": "https://github.com/grifcj/cmake-app",
+            "revision": "auto"
+            }
 
     def build(self):
         cmake = CMake(self)
