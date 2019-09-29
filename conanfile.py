@@ -22,10 +22,10 @@ class AppConan(ConanFile):
     build_requires = "gtest/1.8.1@bincrafters/stable"
 
     scm = {
-            "type": "git",
-            "url": "https://github.com/grifcj/cmake-app",
-            "revision": "auto"
-            }
+        "type": "git",
+        "url": "https://github.com/grifcj/cmake-app",
+        "revision": "auto"
+    }
 
     def build(self):
         cmake = CMake(self)
