@@ -1,7 +1,7 @@
 #include <sstream>
 
-#include "logger.h"
-#include "fibonacci.h"
+#include "logger/logger.h"
+#include "math/fibonacci.h"
 
 int main(void)
 {

@@ -1,38 +1,19 @@
-from conans import ConanFile, CMake, tools
+from conans import ConanFile, CMake, python_requires
 
-def get_version():
-    git = tools.Git()
-    try:
-        return git.run("describe --tags --dirty --always").replace('/', '-')
-    except:
-        return None
+base = python_requires("conanbase/1.0.0-nightly@grifcj/dev")
 
-class AppConan(ConanFile):
+class AppConan(base.get_conanfile()):
     name = "app"
-    version = get_version()
-    license = "Beerware"
-    author = "Connor Griffith grifcj@gmail.com"
-    url = "https://github.com/grifcj/cmake-app"
-    description = "An app that punked Chuck Norris"
-    settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False]}
-    default_options = "shared=False"
-    generators = "cmake_find_package_multi"
-    requires = "logger/0.1.0@grifcj/stable", "math/0.1.0@grifcj/stable"
-    build_requires = "gtest/1.8.1@bincrafters/stable"
-
+    version = "1.0.0-nightly"
     scm = {
         "type": "git",
         "url": "https://github.com/grifcj/cmake-app",
         "revision": "auto"
     }
+    requires = (
+            "logger/1.0.0-nightly@grifcj/dev",
+            "math/1.0.0-nightly@grifcj/dev")
+    build_requires = "cmake_extensions/1.0.0-nightly@grifcj/dev"
+    generators = "cmake_paths"
 
-    def build(self):
-        cmake = CMake(self)
-        cmake.configure()
-        cmake.build()
-        cmake.test()
-
-    def package(self):
-        self.copy("app")
 
