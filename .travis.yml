@@ -8,7 +8,9 @@ install:
   - pip install conan
   - conan user
   - conan remote add learning https://api.bintray.com/conan/grifcj/learning
-  - conan install -if build .
+  # Need to install build requirements so we can source run environment for
+  # build tools. Don't fail for missing packages yet.
+  - conan install -if build . --build never || true
   - source build/activate_run.sh
   - conan install -if build . --build missing
 script:
