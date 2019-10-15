@@ -8,7 +8,7 @@ install:
   - pip install conan
   - conan user
 script:
-  - conan install .
-  - cmake . -G "Unix Makefiles"
-  - cmake --build .
-  - ctest .
+  - conan install cmake_installer/3.15.4@conan/stable
+  - conan install . -g virtualrunenv
+  - source activate_run.sh
+  - conan build .
