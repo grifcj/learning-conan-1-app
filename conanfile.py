@@ -13,7 +13,12 @@ class AppConan(base.get_conanfile()):
     requires = (
             "logger/1.0.0-nightly@grifcj/dev",
             "math/1.0.0-nightly@grifcj/dev")
-    build_requires = "cmake_extensions/1.0.0-nightly@grifcj/dev"
-    generators = "cmake_paths"
+    build_requires = (
+            "cmake_extensions/1.0.0-nightly@grifcj/dev",
+            "cmake_installer/[*]@conan/stable",
+            "ninja_installer/[*]@bincrafters/stable")
+    generators = (
+            "cmake_paths",
+            "virtualrunenv")
 
 
