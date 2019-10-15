@@ -5,10 +5,18 @@ dist: bionic
 compiler:
   - gcc
 install:
+  # Will this install sufficiently latest conan?
   - pip install conan
+  - conan --version
   - conan user
+  # install latest cmake, need it for build recipes
+  - conan install -if build cmake_installer/3.15.4@conan/stable -g virtualrunenv
+  - source build/activate_run.sh
+  # Add learning repo for access to required binary packages for this recipe.
+  # Only packages available in our remote right now will be for macos, so we
+  # will need to build binaries on travis linux machine
+  - conan remote add learning https://api.bintray.com/conan/grifcj/learning
+  - conan install -if build . --build missing
 script:
-  - conan install cmake_installer/3.15.4@conan/stable
-  - conan install . -g virtualrunenv
-  - source activate_run.sh
-  - conan build .
+  # Build and test the app...
+  - conan build -bf build .
