@@ -8,5 +8,6 @@ env:
       - DOCKER_IMAGE=conanio/clang7
 
 script:
+   - pip install conan
    - conan install -if build . -pr ./travis.conan.yml --build missing
    - conan build -bf build .
