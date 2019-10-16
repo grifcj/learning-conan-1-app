@@ -1,13 +1,17 @@
 os: linux
-language: python
-python: "3.7"
-dist: bionic
-compiler:
-  - clang
-install:
-  - pip install conan
-  - conan user
-  - conan remote add learning https://api.bintray.com/conan/grifcj/learning
-  - conan install -if build . --build missing -pr travis.conan.yml
-script:
-  - conan build -bf build .
+ services:
+    - docker
+ sudo: required
+ language: python
+ env:
+   matrix:
+     - DOCKER_IMAGE=conanio/clang7
+
+ before_install:
+   - ./.travis/before_install.sh
+
+ install:
+   - ./.travis/install.sh
+
+ script:
+   - ./.travis/run.sh
