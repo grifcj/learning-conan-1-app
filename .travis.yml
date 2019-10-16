@@ -9,5 +9,6 @@ env:
 
 script:
    - pip install conan
+   - conan remote add learning https://bintray.com/grifcj/learning
    - conan install -if build . -pr ./travis.conan.yml --build missing
    - conan build -bf build .
