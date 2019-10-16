@@ -6,7 +6,6 @@ arch_build=x86_64
 compiler=clang
 compiler.version=7.0
 compiler.libcxx=libc++
-compiler.cppstd=11
 build_type=Release
 
 [options]
@@ -16,3 +15,5 @@ cmake_installer/[*]@conan/stable
 ninja_installer/[*]@bincrafters/stable
 
 [env]
+CC=clang
+CXX=clang++
