@@ -7,11 +7,5 @@ env:
    matrix:
       - DOCKER_IMAGE=conanio/clang7
 
-before_install:
-   - ./.travis/before_install.sh
-
-install:
-   - ./.travis/install.sh
-
 script:
    - ./.travis/run.sh
