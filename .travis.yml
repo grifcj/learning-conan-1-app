@@ -8,6 +8,6 @@ install:
   - pip install conan
   - conan user
   - conan remote add learning https://api.bintray.com/conan/grifcj/learning
-  - conan install -if build . --build missing
+  - conan install -if build . --build missing -pr travis.conan.yml
 script:
   - conan build -bf build .
