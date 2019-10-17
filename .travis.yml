@@ -1,14 +1,14 @@
-os: linux
+language: python
+
 services:
    - docker
-sudo: required
-language: python
-env:
-   matrix:
-      - DOCKER_IMAGE=conanio/clang7
+
+before_install:
+   - docker run -dit --name dconan -v $(pwd):/src conanio/clang7 bash
 
 script:
-   - pip install conan
-   - conan remote add learning https://bintray.com/grifcj/learning
-   - conan install -if build . -pr ./travis.conan.yml --build missing
+   - docker attach dconan
+   - cd /src
+   - conan remote add learning https://api.bintray.com/conan/grifcj/learning
+   - conan install -if build . -s compiler.libcxx=libstdc++11 --build missing
    - conan build -bf build .
