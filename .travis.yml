@@ -1,7 +1,35 @@
-language: python
 
-services:
-   - docker
+env:
+   global:
+     - CONAN_REFERENCE: "app/1.0.0-nightly"
+     - CONAN_USERNAME: "grifcj"
+     - CONAN_LOGIN_USERNAME: "grifcj"
+     - CONAN_CHANNEL: "dev"
+     - CONAN_UPLOAD: "https://api.bintray.com/conan/grifcj/learning"
+
+linux: &linux
+   os: linux
+   dist: xenial
+   language: python
+   python: "3.7"
+   services:
+     - docker
+osx: &osx
+   os: osx
+   language: generic
+matrix:
+   include:
+
+      - <<: *linux
+        env: CONAN_CLANG_VERSIONS=7.0 CONAN_DOCKER_IMAGE=conanio/clang70
+
+      - <<: *linux
+        env: CONAN_CLANG_VERSIONS=7.1 CONAN_DOCKER_IMAGE=conanio/clang71
+
+install:
+  - chmod +x .travis/install.sh
+  - ./.travis/install.sh
 
 script:
-   - docker run -v $(pwd):/home/conan conanio/clang7 bash travis-build.sh
+  - chmod +x .travis/run.sh
+  - ./.travis/run.sh
