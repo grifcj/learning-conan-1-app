@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     # Expect CI to define compiler versions with environment variables to
     # constrain build variants
-    builder.add_common_builds()
+    builder.add_common_builds(shared_option_name=False)
 
     # Force c++11 stl, we get link errors with clang if not and supporting
     # c++11 with libc++ requires extra compiler and link options on linux
