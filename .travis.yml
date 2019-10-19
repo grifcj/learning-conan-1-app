@@ -13,6 +13,15 @@ linux: &linux
    python: "3.7"
    services:
      - docker
+
+osx: &osx
+   os: osx
+   language: generic
+   addons:
+      homebrew:
+         update: true
+         packages: [python, conan]
+
 matrix:
    include:
       - <<: *linux
@@ -20,6 +29,10 @@ matrix:
 
       - <<: *linux
         env: CONAN_CLANG_VERSIONS=8 CONAN_DOCKER_IMAGE=conanio/clang8
+
+      - <<: *osx
+        osx_image: xcode8.3
+        env: CONAN_APPLE_CLANG_VERSIONS=8.1
 
 install:
   - chmod +x .travis/install.sh
