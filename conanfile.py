@@ -18,5 +18,4 @@ class AppConan(base.get_conanfile()):
     generators = (
             "cmake_paths",
             "virtualrunenv")
-
-
+    options = None
