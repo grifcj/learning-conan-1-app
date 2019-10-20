@@ -1,3 +1,4 @@
+import platform
 from cpt.packager import ConanMultiPackager
 from pprint import pprint
 
@@ -16,8 +17,9 @@ if __name__ == "__main__":
 
     # Force c++11 stl, we get link errors with clang if not and supporting
     # c++11 with libc++ requires extra compiler and link options on linux
-    builder.update_build_if(
-            lambda build: True,
-            new_settings={"compiler.libcxx": "libstdc++11"})
+    if platform.system() == "Linux":
+        builder.update_build_if(
+                lambda build: True,
+                new_settings={"compiler.libcxx": "libstdc++11"})
 
     builder.run()
