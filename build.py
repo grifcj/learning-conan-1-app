@@ -8,8 +8,7 @@ if __name__ == "__main__":
             username="grifcj",
             channel="dev",
             upload_dependencies="all",
-            build_policy="missing",
-            remotes= "https://api.bintray.com/conan/grifcj/learning")
+            build_policy="missing")
 
     # Expect CI to define compiler versions with environment variables to
     # constrain build variants
@@ -22,4 +21,4 @@ if __name__ == "__main__":
                 lambda build: True,
                 new_settings={"compiler.libcxx": "libstdc++11"})
 
-    builder.run()
+    builder.run("default-cmake-ninja")
