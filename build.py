@@ -5,11 +5,11 @@ from pprint import pprint
 if __name__ == "__main__":
     builder = ConanMultiPackager(
             archs=["x86_64"],
-            reference: "app/1.0.0-nightly",
-            username: "grifcj",
+            reference="app/1.0.0-nightly",
+            username="grifcj",
             channel="dev",
-            login_username: "grifcj",
-            upload: "https://api.bintray.com/conan/grifcj/learning",
+            login_username="grifcj",
+            upload="https://api.bintray.com/conan/grifcj/learning",
             upload_dependencies="all",
             build_policy="missing")
 
