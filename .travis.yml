@@ -24,20 +24,20 @@ matrix:
    include:
       - <<: *linux
         script:
-           - echo DOCKER_IMAGE=conanio/clang7
+           - export DOCKER_IMAGE=conanio/clang7
            - echo "CONAN_CLANG_VERSIONS=7.0" >> env.file
            - *docker_cmd
 
       - <<: *linux
         script:
-           - echo DOCKER_IMAGE=conanio/clang8
+           - export DOCKER_IMAGE=conanio/clang8
            - echo "CONAN_CLANG_VERSIONS=8" >> env.file
            - *docker_cmd
 
       - <<: *osx
         osx_image: xcode8.3
         script:
-           - echo DOCKER_IMAGE=conanio/clang8
+           - export DOCKER_IMAGE=conanio/clang8
            - echo "CONAN_APPLE_CLANG_VERSIONS=8.1" >> env.file
            - *docker_cmd
 
