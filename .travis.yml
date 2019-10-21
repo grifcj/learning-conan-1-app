@@ -9,6 +9,9 @@ linux: &linux
 osx: &osx
    os: osx
    language: generic
+   addons:
+       homebrew:
+          packages: [python]
 
 docker_cmd: &docker_cmd >
    docker run -v $(pwd):/src -w /src \
