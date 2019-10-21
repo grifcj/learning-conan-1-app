@@ -9,9 +9,6 @@ linux: &linux
 osx: &osx
    os: osx
    language: generic
-   addons:
-       homebrew:
-          packages: [python]
 
 docker_cmd: &docker_cmd >
    docker run -v $(pwd):/src -w /src \
@@ -43,6 +40,9 @@ matrix:
            - export DOCKER_IMAGE=conanio/clang8
            - echo "CONAN_APPLE_CLANG_VERSIONS=8.1" >> env.file
            - *docker_cmd
+
+before_install:
+   - if [ $TRAVIS_OS_NAME = osx ]; then brew install python; fi
 
 install:
   - chmod +x .travis/install.sh
