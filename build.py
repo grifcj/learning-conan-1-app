@@ -24,4 +24,7 @@ if __name__ == "__main__":
                 lambda build: True,
                 new_settings={"compiler.libcxx": "libstdc++11"})
 
+    # We expect profile to exist from previous conan config install step. It's
+    # the default profile plus cmake and ninja tools since we use versions of
+    # these that are not commonly bundled in CI VMs.
     builder.run("default-cmake-ninja")
