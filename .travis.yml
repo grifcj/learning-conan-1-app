@@ -1,7 +1,35 @@
-language: python
+linux: &linux
+   os: linux
+   dist: bionic
+   language: python
+   python: "3.7"
+   services:
+     - docker
 
-services:
-   - docker
+docker_cmd: &docker_cmd >
+   docker run -v $(pwd):/src -w /src \
+      -e CONAN_PASSWORD=$CONAN_PASSWORD \
+      --env-file env.file \
+      $DOCKER_IMAGE \
+      bash -c "\
+      conan profile new default --detect && \
+      conan config install https://github.com/grifcj/learning-conan-1-conanconfig.git && \
+      python build.py"
 
-script:
-   - docker run -v $(pwd):/home/conan conanio/clang7 bash travis-build.sh
+matrix:
+   include:
+      - <<: *linux
+        script:
+           - export DOCKER_IMAGE=conanio/clang7
+           - echo "CONAN_CLANG_VERSIONS=7.0" >> env.file
+           - *docker_cmd
+
+      - <<: *linux
+        script:
+           - export DOCKER_IMAGE=conanio/clang8
+           - echo "CONAN_CLANG_VERSIONS=8" >> env.file
+           - *docker_cmd
+
+install:
+  - chmod +x .travis/install.sh
+  - ./.travis/install.sh
