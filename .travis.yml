@@ -1,11 +1,3 @@
-env:
-   global:
-     - CONAN_REFERENCE: "app/1.0.0-nightly"
-     - CONAN_USERNAME: "grifcj"
-     - CONAN_LOGIN_USERNAME: "grifcj"
-     - CONAN_CHANNEL: "dev"
-     - CONAN_UPLOAD: "https://api.bintray.com/conan/grifcj/learning"
-
 linux: &linux
    os: linux
    dist: bionic
@@ -17,27 +9,38 @@ linux: &linux
 osx: &osx
    os: osx
    language: generic
-   addons:
-      homebrew:
-         update: true
-         packages: [python, conan]
+
+docker_cmd: &docker_cmd >
+   docker run -v $(pwd):/src -w /src \
+      -e CONAN_PASSWORD=$CONAN_PASSWORD \
+      --env-file env.file \
+      $DOCKER_IMAGE \
+      bash -c "\
+      conan profile new default --detect && \
+      conan config install https://github.com/grifcj/learning-conan-1-conanconfig.git && \
+      python build.py"
 
 matrix:
    include:
       - <<: *linux
-        env: CONAN_CLANG_VERSIONS=7.0 CONAN_DOCKER_IMAGE=conanio/clang7
+        script:
+           - echo DOCKER_IMAGE=conanio/clang7
+           - echo "CONAN_CLANG_VERSIONS=7.0" >> env.file
+           - *docker_cmd
 
       - <<: *linux
-        env: CONAN_CLANG_VERSIONS=8 CONAN_DOCKER_IMAGE=conanio/clang8
+        script:
+           - echo DOCKER_IMAGE=conanio/clang8
+           - echo "CONAN_CLANG_VERSIONS=8" >> env.file
+           - *docker_cmd
 
       - <<: *osx
         osx_image: xcode8.3
-        env: CONAN_APPLE_CLANG_VERSIONS=8.1
+        script:
+           - echo DOCKER_IMAGE=conanio/clang8
+           - echo "CONAN_APPLE_CLANG_VERSIONS=8.1" >> env.file
+           - *docker_cmd
 
 install:
   - chmod +x .travis/install.sh
   - ./.travis/install.sh
-
-script:
-  - chmod +x .travis/run.sh
-  - ./.travis/run.sh
