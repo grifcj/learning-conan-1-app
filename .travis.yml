@@ -6,10 +6,6 @@ linux: &linux
    services:
      - docker
 
-osx: &osx
-   os: osx
-   language: generic
-
 docker_cmd: &docker_cmd >
    docker run -v $(pwd):/src -w /src \
       -e CONAN_PASSWORD=$CONAN_PASSWORD \
@@ -33,16 +29,6 @@ matrix:
            - export DOCKER_IMAGE=conanio/clang8
            - echo "CONAN_CLANG_VERSIONS=8" >> env.file
            - *docker_cmd
-
-      - <<: *osx
-        osx_image: xcode8.3
-        script:
-           - export DOCKER_IMAGE=conanio/clang8
-           - echo "CONAN_APPLE_CLANG_VERSIONS=8.1" >> env.file
-           - *docker_cmd
-
-before_install:
-   - if [ $TRAVIS_OS_NAME = osx ]; then brew install python; fi
 
 install:
   - chmod +x .travis/install.sh
