@@ -6,6 +6,9 @@ base = python_requires("conanbase/1.0.0-nightly@grifcj/dev")
 class AppConan(base.get_conanfile()):
     name = "app"
     version = "1.0.0-nightly"
+    url = "https://github.com/grifcj/cmake-app"
+    license = "MIT"
+    description = "An app for learning"
     scm = {
         "type": "git",
         "url": "https://github.com/grifcj/cmake-app",
