@@ -1,8 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-project(app)
-
-include(CMakeExtensions)
-declare_source_package(app)
+project(app VERSION ${PACKAGE_VERSION})
 
 add_subdirectory(src)
 

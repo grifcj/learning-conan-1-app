@@ -1,11 +1,5 @@
-cmake_minimum_required(VERSION 3.13)
-project(app-test)
-
-find_package(app REQUIRED)
-
-enable_testing()
-add_test(NAME app::unittest COMMAND $<TARGET_FILE:app::app>)
+add_test(NAME unittest COMMAND $<TARGET_FILE:app>)
 set_tests_properties(
-   app::unittest
+   unittest
    PROPERTIES
    PASS_REGULAR_EXPRESSION "Fibonacci.*grand")
